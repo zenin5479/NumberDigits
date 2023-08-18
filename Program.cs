@@ -42,6 +42,7 @@ namespace NumberDigits
             // Если точка найдена, найти длину строки после запятой.
             Console.WriteLine("Вариант 2: Число содержит {0} символов после запятой", decimalPlaces);
 
+            // Вариант 2
             string str = number.ToString(CultureInfo.InvariantCulture);
             int countBefore = str.IndexOf('.');
             int countAfter = str.Length - countBefore - 1;
