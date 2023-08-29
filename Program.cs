@@ -56,6 +56,7 @@ namespace NumberDigits
             }
         }
 
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
         private static int RoundingParameters(decimal inputQty)
         {
             string qty = inputQty.ToString(CultureInfo.InvariantCulture);
