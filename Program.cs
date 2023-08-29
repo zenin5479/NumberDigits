@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 
 // Определить количество цифр, идущих после точки (.)
 // Работает с точкой (.) и не работает с запятой (,)
@@ -9,25 +11,27 @@ namespace NumberDigits
     {
         private static void Main()
         {
-            Console.Write("Введите число: ");
             // Преобразовать число с плавающей точкой в строку
-            var input = Convert.ToString(Console.ReadLine());
-            var inputLength = input.Length;
 
-            // Вариант 1
+            // "minQty": "0.00000100"
+            // "maxPrice": "10000000.00000000"
+            const string minPrice = "0.00000100";
+            const string maxPrice = "10000000.00000000";
+            var minPriceLength = minPrice.Length;
+            var maxPriceLength = minPrice.Length;
             // Найти позицию точки в строке методом IndexOf()
-            var symbolTwo = input.IndexOf('.');
-            if (symbolTwo == -1)
+            var pointminPrice = minPrice.IndexOf('.');
+            if (pointminPrice == -1)
             {
-                Console.WriteLine("Вариант 1: Число содержит {0} символов", inputLength);
+                Console.WriteLine("Число {0} содержит {1} символов", minPrice, minPriceLength);
             }
             else
             {
                 // Если точка найдена, найти длину строки после точки
-                var placesTwo = (inputLength - 1) - symbolTwo;
+                var placesTwo = (minPriceLength - 1) - pointminPrice;
                 Console.WriteLine(
-                    "Вариант 1: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов",
-                    symbolTwo, placesTwo, inputLength);
+                    "Число {0} содержит {1} символов до точки и {2} символов после точки длина числа {3} символов",
+                    minPrice, pointminPrice, placesTwo, minPriceLength);
             }
 
             const string s1 = "Быстрая бурая лиса перепрыгивает через ленивую собаку";
