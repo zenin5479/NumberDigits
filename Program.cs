@@ -13,7 +13,7 @@ namespace NumberDigits
             // Преобразовать число с плавающей точкой в строку
             var input = Convert.ToString(Console.ReadLine());
             var inputLength = input.Length;
-            
+
             // Вариант 1
             {
                 var symbolOne = input.Split('.');
