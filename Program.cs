@@ -15,41 +15,6 @@ namespace NumberDigits
             var inputLength = input.Length;
 
             // Вариант 1
-            var symbolOne = input.Split('.');
-            // Найти позицию точки в строке
-            var lengthOne = symbolOne.Length > 1 ? symbolOne[1].Length : 0;
-            if (lengthOne == 0)
-            {
-                Console.WriteLine("Вариант 1: Число содержит {0} символов", inputLength);
-            }
-            else
-            {
-                // Если точка найдена, найти длину строки после точки
-                var placesOne = (inputLength - 1) - lengthOne;
-                Console.WriteLine(
-                    "Вариант 1: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов",
-                    placesOne, lengthOne, inputLength);
-            }
-
-            // Вариант 1a
-            char one = '1';
-            var symbolOne2 = input.Split(one);
-            // Найти позицию единицы в строке
-           
-            var lengthOne2 = symbolOne2.Length > 1 ? symbolOne2[1].Length : 0;
-            if (lengthOne2 == 0)
-            {
-                var placesOne1 = (inputLength - 1);
-                Console.WriteLine(
-                    "Вариант 1a: Число содержит {0} символов до единицы и {1} символов после единицы длина числа {2} символов", placesOne1, inputLength, placesOne1);
-            }
-            else
-            {
-                // Если единица найдена, найти длину строки после единицы
-                Console.WriteLine("Вариант 1: Число содержит {0} символов", inputLength);
-            }
-
-            // Вариант 2
             // Найти позицию точки в строке методом IndexOf()
             var symbolTwo = input.IndexOf('.');
             if (symbolTwo == -1)
@@ -61,9 +26,49 @@ namespace NumberDigits
                 // Если точка найдена, найти длину строки после точки
                 var placesTwo = (inputLength - 1) - symbolTwo;
                 Console.WriteLine(
-                    "Вариант 2: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов",
+                    "Вариант 1: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов",
                     symbolTwo, placesTwo, inputLength);
             }
+
+            const string s1 = "Быстрая бурая лиса перепрыгивает через ленивую собаку";
+            const string s2 = "лиса";
+            bool b = s1.Contains(s2);
+            Console.WriteLine("'{0}' находится в строке '{1}': {2}", s2, s1, b);
+            if (b)
+            {
+                int index = s1.IndexOf(s2);
+                if (index >= 0)
+                    Console.WriteLine("'{0} начинается с позиции символа {1}", s2, index + 1);
+            }
+
+            const string br1 = "0----+----1";
+            const string br2 = "01234567890";
+            const string str = "100000.0000";
+            const string target = ".";
+            char[] anyOf = target.ToCharArray();
+            const string target1 = "1";
+            char[] anyOf1 = target1.ToCharArray();
+
+            const int start = 0;
+            Console.WriteLine();
+            Console.WriteLine("Первое вхождение символа с позиции {0} к {1}.", start, str.Length - 1);
+            Console.WriteLine("{1}{0}{2}{0}{3}{0}", Environment.NewLine, br1, br2, str);
+
+            var at = str.IndexOfAny(anyOf, start);
+            Console.Write("Символ в '{0}' встречается в позиции: ", target);
+            if (at > -1)
+                Console.Write(at);
+            else
+                Console.Write("(Не найдено)");
+            Console.WriteLine();
+
+            var at1 = str.IndexOfAny(anyOf1, start);
+            Console.Write("Символ в '{0}' встречается в позиции: ", target1);
+            if (at1 > -1)
+                Console.Write(at1);
+            else
+                Console.Write("(Не найдено)");
+            Console.WriteLine();
         }
     }
 }
