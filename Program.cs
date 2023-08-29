@@ -21,8 +21,7 @@ namespace NumberDigits
                 var lengthOne = symbolOne.Length > 1 ? symbolOne[1].Length : 0;
                 if (lengthOne == 0)
                 {
-                    var placesNullOne = input.Length;
-                    Console.WriteLine("Вариант 1: Число содержит {0} символов", placesNullOne);
+                    Console.WriteLine("Вариант 1: Число содержит {0} символов", inputLength);
                 }
                 else
                 {
@@ -38,13 +37,12 @@ namespace NumberDigits
                 var symbolTwo = input.IndexOf('.');
                 if (symbolTwo == -1)
                 {
-                    var placesNullTwo = input.Length;
-                    Console.WriteLine("Вариант 1: Число содержит {0} символов", placesNullTwo);
+                    Console.WriteLine("Вариант 1: Число содержит {0} символов", inputLength);
                 }
                 else
                 {
                     // Если точка найдена, найти длину строки после точки
-                    var placesTwo = (input.Length - 1) - symbolTwo;
+                    var placesTwo = (inputLength - 1) - symbolTwo;
                     Console.WriteLine("Вариант 2: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов", symbolTwo, placesTwo, inputLength);
                 }
             }
