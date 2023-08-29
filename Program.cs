@@ -31,8 +31,23 @@ namespace NumberDigits
                     placesOne, lengthOne, inputLength);
             }
 
-
-
+            // Вариант 1a
+            var symbolOne2 = input.Split('1');
+            // Найти позицию единицы в строке
+            var lengthOne2 = symbolOne2.Length > 1 ? symbolOne2[1].Length : 0;
+            if (lengthOne2 == 0)
+            {
+                Console.WriteLine("Вариант 1a: Число содержит {0} символов", inputLength);
+            }
+            else
+            {
+                // Если единица найдена, найти длину строки после единицы
+                var placesOne = (input.Length - 1) - lengthOne2;
+                Console.WriteLine(
+                    "Вариант 1a: Число содержит {0} символов до единицы и {1} символов после единицы длина числа {2} символов",
+                    placesOne, lengthOne2, inputLength);
+            }
+            
             // Вариант 2
             // Найти позицию точки в строке методом IndexOf()
             var symbolTwo = input.IndexOf('.');
