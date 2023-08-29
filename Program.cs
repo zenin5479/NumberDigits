@@ -25,29 +25,30 @@ namespace NumberDigits
             else
             {
                 // Если точка найдена, найти длину строки после точки
-                var placesOne = (input.Length - 1) - lengthOne;
+                var placesOne = (inputLength - 1) - lengthOne;
                 Console.WriteLine(
                     "Вариант 1: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов",
                     placesOne, lengthOne, inputLength);
             }
 
             // Вариант 1a
-            var symbolOne2 = input.Split('1');
+            char one = '1';
+            var symbolOne2 = input.Split(one);
             // Найти позицию единицы в строке
+           
             var lengthOne2 = symbolOne2.Length > 1 ? symbolOne2[1].Length : 0;
             if (lengthOne2 == 0)
             {
-                Console.WriteLine("Вариант 1a: Число содержит {0} символов", inputLength);
+                var placesOne1 = (inputLength - 1);
+                Console.WriteLine(
+                    "Вариант 1a: Число содержит {0} символов до единицы и {1} символов после единицы длина числа {2} символов", placesOne1, inputLength, placesOne1);
             }
             else
             {
                 // Если единица найдена, найти длину строки после единицы
-                var placesOne = (input.Length - 1) - lengthOne2;
-                Console.WriteLine(
-                    "Вариант 1a: Число содержит {0} символов до единицы и {1} символов после единицы длина числа {2} символов",
-                    placesOne, lengthOne2, inputLength);
+                Console.WriteLine("Вариант 1: Число содержит {0} символов", inputLength);
             }
-            
+
             // Вариант 2
             // Найти позицию точки в строке методом IndexOf()
             var symbolTwo = input.IndexOf('.');
