@@ -9,38 +9,44 @@ namespace NumberDigits
     {
         private static void Main()
         {
-
             Console.Write("Введите число: ");
             // Преобразовать число с плавающей точкой в строку
             var input = Convert.ToString(Console.ReadLine());
-
+            var inputLength = input.Length;
+            
             // Вариант 1
-            if (input != null)
             {
-                var symbol = input.Split('.');
+                var symbolOne = input.Split('.');
                 // Найти позицию точки в строке
-                var length = symbol.Length > 1 ? symbol[1].Length : 0;
-                // Если точка найдена, найти длину строки после точки
-                var places = (input.Length - 1) - length;
-                Console.WriteLine("Вариант 1: Число содержит {0} символов до точки и {1} символов после точки", places, length);
-            }
-            else
-            {
-                Console.WriteLine("Не удалось распознать число");
+                var lengthOne = symbolOne.Length > 1 ? symbolOne[1].Length : 0;
+                if (lengthOne == 0)
+                {
+                    var placesNullOne = input.Length;
+                    Console.WriteLine("Вариант 1: Число содержит {0} символов", placesNullOne);
+                }
+                else
+                {
+                    // Если точка найдена, найти длину строки после точки
+                    var placesOne = (input.Length - 1) - lengthOne;
+                    Console.WriteLine("Вариант 1: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов", placesOne, lengthOne, inputLength);
+                }
             }
 
             // Вариант 2
-            if (input != null)
             {
                 // Найти позицию точки в строке методом IndexOf()
-                var decimalPosition = input.IndexOf('.');
-                // Если точка найдена, найти длину строки после точки
-                var decimalPlaces = (input.Length - 1) - decimalPosition;
-                Console.WriteLine("Вариант 2: Число содержит {0} символов до точки и {1} символов после точки", decimalPosition, decimalPlaces);
-            }
-            else
-            {
-                Console.WriteLine("Не удалось распознать число");
+                var symbolTwo = input.IndexOf('.');
+                if (symbolTwo == -1)
+                {
+                    var placesNullTwo = input.Length;
+                    Console.WriteLine("Вариант 1: Число содержит {0} символов", placesNullTwo);
+                }
+                else
+                {
+                    // Если точка найдена, найти длину строки после точки
+                    var placesTwo = (input.Length - 1) - symbolTwo;
+                    Console.WriteLine("Вариант 2: Число содержит {0} символов до точки и {1} символов после точки длина числа {2} символов", symbolTwo, placesTwo, inputLength);
+                }
             }
         }
     }
