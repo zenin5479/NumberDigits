@@ -74,6 +74,7 @@ namespace NumberDigits
                 var placesQty = (qtyLength - 1) - pointQty;
                 roundingparameters = placesQty;
             }
+
             return roundingparameters;
         }
     }
