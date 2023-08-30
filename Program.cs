@@ -63,18 +63,18 @@ namespace NumberDigits
             var qtyLength = qty.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointQty = qty.IndexOf('.');
-            int par;
+            int roundingparameters;
             if (pointQty == -1)
             {
-                par = qtyLength;
+                roundingparameters = qtyLength;
             }
             else
             {
                 // Если точка найдена, находим длину строки после точки
                 var placesQty = (qtyLength - 1) - pointQty;
-                par = placesQty;
+                roundingparameters = placesQty;
             }
-            return par;
+            return roundingparameters;
         }
     }
 }
