@@ -15,8 +15,8 @@ namespace NumberDigits
             // "minQty": "0.00000100"
             // "maxQty": "10000000.00000000"
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const decimal inputminQty = (decimal)0.00000100;
-            const decimal inputmaxQty = (decimal)(10000000.00000000);
+            const double inputminQty = 0.00100000;
+            const double inputmaxQty = 10000000.00000000;
 
             int roundminQty = RoundingParameters(inputminQty);
             Console.WriteLine("RoundingParameters: Число {0} содержит {1} символов", inputminQty, roundminQty);
@@ -57,7 +57,7 @@ namespace NumberDigits
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int RoundingParameters(decimal inputQty)
+        private static int RoundingParameters(double inputQty)
         {
             string qty = inputQty.ToString(CultureInfo.InvariantCulture);
             var qtyLength = qty.Length;
