@@ -15,7 +15,8 @@ namespace NumberDigits
             // "minQty": "0.00000100"
             // "maxQty": "10000000.00000000"
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const double inputQty = 0.00100000;
+            const double inputQty = 5.00000;
+            //const double inputQty = 0.00100000;
             //const double inputQty = 10000000.00000000;
 
             int roundminQty = RoundingParameters(inputQty);
@@ -42,7 +43,8 @@ namespace NumberDigits
             // "minQty": "0.00001000"
             // "maxQty": "1.00000000"
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const decimal inputminQty2 = 0.00001000m;
+            const decimal inputminQty2 = 5.00000000m;
+            //const decimal inputminQty2 = 0.00001000m;
             //const decimal inputminQty2 = 0.00001000m;
             //const decimal inputmaxQty2 = 1.00000000m;
             //const decimal inputmaxQty2 = 10000000m;
