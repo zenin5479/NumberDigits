@@ -12,122 +12,91 @@ namespace NumberDigits
         private static void Main()
         {
             // Входные данные
-            // "minQty": "0.00000100"
-            // "maxQty": "10000000.00000000"
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const double inputQty = 5.00000;
-            //const double inputQty = 0.00100000;
-            //const double inputQty = 10000000.00000000;
-
-            int roundminQty = RoundingParameters(inputQty);
-            Console.WriteLine("RoundingParameters: Число {0} округляем до {1} знака", inputQty, roundminQty);
-
-            // Первое число
-            // Преобразовать число с плавающей точкой в строку
-            string minQty = inputQty.ToString(CultureInfo.InvariantCulture);
-            var minQtyLength = minQty.Length;
-            // Определяем позицию точки в строке методом IndexOf()
-            var pointminQty = minQty.IndexOf('.');
-            if (pointminQty == -1)
-            {
-                Console.WriteLine("Число {0} округляем до {1} знака", minQty, minQtyLength);
-            }
-            else
-            {
-                // Если точка найдена, находим длину строки после точки
-                var placesminQty = (minQtyLength - 1) - pointminQty;
-                Console.WriteLine("Число {0} округляем до {1} знака", minQty, placesminQty);
-            }
-
-            // Входные данные
-            // "minQty": "0.00001000"
-            // "maxQty": "1.00000000"
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const decimal inputminQty2 = 5.00000000m;
-            //const decimal inputminQty2 = 0.00001000m;
-            //const decimal inputminQty2 = 0.00001000m;
-            //const decimal inputmaxQty2 = 1.00000000m;
-            //const decimal inputmaxQty2 = 10000000m;
-
-            int roundminQty2 = RoundingParameters(inputminQty2);
-            Console.WriteLine("RoundingParameters: Число {0} округляем до {1} знака", inputminQty2, roundminQty2);
+            const decimal qty = 5.00000000m;
+            //const decimal qty = 0.00010000m;
+            //const decimal qty = 0.00001000m;
+            //const decimal qty = 1.00000000m;
+            //const decimal qty = 10000000m;
+            var roundqty = RoundingParameters(qty);
+            Console.WriteLine("RoundingParameters: Число {0} округляем до {1} знака", qty, roundqty);
 
             // Преобразовать число с плавающей точкой в строку
-            string minQty2 = inputminQty2.ToString(CultureInfo.InvariantCulture);
-            int minQtyLength2 = minQty2.Length;
+            var stringqty = qty.ToString(CultureInfo.InvariantCulture);
+            var stringqtylength = stringqty.Length;
             // Определяем позицию точки в строке методом IndexOf()
-            int pointminQty2 = minQty2.IndexOf('.');
-            int oneminQty2 = minQty2.IndexOf('1');
-            if (pointminQty2 != -1)
+            var pointqty = stringqty.IndexOf('.');
+            var oneqty = stringqty.IndexOf('1');
+            if (pointqty != -1)
             {
-                if (pointminQty2 > oneminQty2)
+                if (pointqty > oneqty)
                 {
                     // Если точка найдена и единица найдена, находим положение единицы до точки
-                    Console.WriteLine("Число {0} округляем до {1} знака", minQty2, pointminQty2);
+                    Console.WriteLine("Число {0} округляем до {1} знака", stringqty, pointqty);
                 }
                 else
                 {
                     // Если точка найдена и единица найдена, находим положение единицы после точки
-                    int placesoneminQty = oneminQty2 - pointminQty2;
-                    Console.WriteLine("Число {0} округляем до {1} знака", minQty2, placesoneminQty);
+                    var placesoneminQty = oneqty - pointqty;
+                    Console.WriteLine("Число {0} округляем до {1} знака", stringqty, placesoneminQty);
                 }
             }
             else
             {
                 // Если точка не найдена а единица найдена, положение единицы будет равно длине строки
-                Console.WriteLine("Число {0} округляем до {1} знака", minQty2, minQtyLength2);
+                Console.WriteLine("Число {0} округляем до {1} знака", stringqty, stringqtylength);
             }
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int RoundingParameters(decimal inputQty)
+        private static int RoundingParameters(decimal input)
         {
-            string qty = inputQty.ToString(CultureInfo.InvariantCulture);
-            int qtyLength = qty.Length;
+            var qty = input.ToString(CultureInfo.InvariantCulture);
+            var qtylength = qty.Length;
             int roundingparameters;
             // Определяем позицию точки в строке методом IndexOf()
-            int pointQty = qty.IndexOf('.');
-            int oneQty = qty.IndexOf('1');
-            if (pointQty != -1)
+            var pointqty = qty.IndexOf('.');
+            var oneqty = qty.IndexOf('1');
+            if (pointqty != -1)
             {
-                if (pointQty > oneQty)
+                if (pointqty > oneqty)
                 {
                     // Если точка найдена и единица найдена, находим положение единицы до точки
-                    roundingparameters = pointQty;
+                    roundingparameters = pointqty;
                 }
                 else
                 {
                     // Если точка найдена и единица найдена, находим положение единицы после точки
-                    int placesoneQty = oneQty - pointQty;
-                    roundingparameters = placesoneQty;
+                    var placesoneqty = oneqty - pointqty;
+                    roundingparameters = placesoneqty;
                 }
             }
             else
             {
                 // Если точка не найдена а единица найдена, положение единицы будет равно длине строки
-                roundingparameters = qtyLength;
+                roundingparameters = qtylength;
             }
 
             return roundingparameters;
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int RoundingParameters(double inputQty)
+        private static int RoundingParameters(double input)
         {
-            string qty = inputQty.ToString(CultureInfo.InvariantCulture);
-            var qtyLength = qty.Length;
+            var qty = input.ToString(CultureInfo.InvariantCulture);
+            var qtylength = qty.Length;
             // Определяем позицию точки в строке методом IndexOf()
-            var pointQty = qty.IndexOf('.');
+            var pointqty = qty.IndexOf('.');
             int roundingparameters;
-            if (pointQty == -1)
+            if (pointqty == -1)
             {
-                roundingparameters = qtyLength;
+                roundingparameters = qtylength;
             }
             else
             {
                 // Если точка найдена, находим длину строки после точки
-                var placesQty = (qtyLength - 1) - pointQty;
-                roundingparameters = placesQty;
+                var placesqty = (qtylength - 1) - pointqty;
+                roundingparameters = placesqty;
             }
 
             return roundingparameters;
