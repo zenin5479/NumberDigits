@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 
 // Определить количество цифр, до точки и после точки (.)
@@ -13,92 +15,100 @@ namespace NumberDigits
         {
             // Входные данные
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const decimal qty = 1.002687m;
+            //const decimal qty = 1.002687m;
             //const decimal qty = 2489m;
             //const decimal qty = 1.002687m;
             //const decimal qty = 0.00225679m;
             //const decimal qty = 5.00000000m;
             //const decimal qty = 100.42849m;
-            //const decimal qty = 0.26885272m;
+            const decimal qty = 0.26885272m;
             var roundqty = RoundingParameters(qty);
-            Console.WriteLine("RoundingParameters: Число {0} округляем до {1} знака", qty, roundqty);
-
+            int[] roundqty2 = { 1, 8 };
+            Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр" + " до точки " + roundqty[0] + " после точки " + roundqty[1]);
             // Преобразовать число с плавающей точкой в строку
             var stringqty = qty.ToString(CultureInfo.InvariantCulture);
             var stringqtylength = stringqty.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointqty = stringqty.IndexOf('.');
-            var oneqty = stringqty.IndexOf('1');
-            if (pointqty != -1)
-            {
-                if (pointqty > oneqty)
-                {
-                    // Если точка найдена и единица найдена, находим положение единицы до точки
-                    Console.WriteLine("Число {0} округляем до {1} знака", stringqty, pointqty);
-                }
-                else
-                {
-                    // Если точка найдена и единица найдена, находим положение единицы после точки
-                    var placesoneminQty = oneqty - pointqty;
-                    Console.WriteLine("Число {0} округляем до {1} знака", stringqty, placesoneminQty);
-                }
-            }
-            else
-            {
-                // Если точка не найдена а единица найдена, положение единицы будет равно длине строки
-                Console.WriteLine("Число {0} округляем до {1} знака", stringqty, stringqtylength);
-            }
-        }
-
-        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int RoundingParameters(decimal input)
-        {
-            var qty = input.ToString(CultureInfo.InvariantCulture);
-            var qtylength = qty.Length;
-            int roundingparameters;
-            // Определяем позицию точки в строке методом IndexOf()
-            var pointqty = qty.IndexOf('.');
-            var oneqty = qty.IndexOf('1');
-            if (pointqty != -1)
-            {
-                if (pointqty > oneqty)
-                {
-                    // Если точка найдена и единица найдена, находим положение единицы до точки
-                    roundingparameters = pointqty;
-                }
-                else
-                {
-                    // Если точка найдена и единица найдена, находим положение единицы после точки
-                    var placesoneqty = oneqty - pointqty;
-                    roundingparameters = placesoneqty;
-                }
-            }
-            else
-            {
-                // Если точка не найдена а единица найдена, положение единицы будет равно длине строки
-                roundingparameters = qtylength;
-            }
-
-            return roundingparameters;
-        }
-
-        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int RoundingParameters(double input)
-        {
-            var qty = input.ToString(CultureInfo.InvariantCulture);
-            var qtylength = qty.Length;
-            // Определяем позицию точки в строке методом IndexOf()
-            var pointqty = qty.IndexOf('.');
-            int roundingparameters;
             if (pointqty == -1)
             {
-                roundingparameters = qtylength;
+                // Если точка не найдена, находим количество цифр
+                Console.WriteLine("Число {0} количество цифр {1}", qty, stringqtylength);
             }
             else
             {
-                // Если точка найдена, находим длину строки после точки
-                var placesqty = (qtylength - 1) - pointqty;
-                roundingparameters = placesqty;
+                // Если точка найдена, находим количество цифр после точки
+                var afterpointqty = (stringqtylength - 1) - pointqty;
+                Console.WriteLine("Число " + qty + " количество цифр" + " до точки " + pointqty + " после точки " + afterpointqty);
+            }
+
+            // Использование Enumerable.SequenceEqual
+            // Если массив не нулевой, напрямую вызваем метод SequenceEqual() для массива,
+            // чтобы сравнить его содержимое с указанным массивом.
+            var rs2 = roundqty.SequenceEqual(roundqty2);
+            Console.WriteLine(rs2);
+            // Сравнение соответствующих элементов обеих последовательностей
+            // с использованием пользовательского или стандартного компаратора равенства.
+            var rs3 = Enumerable.SequenceEqual(roundqty, roundqty2);
+            Console.WriteLine(rs3);
+
+            // Использование сабственного метода сравнения
+            bool isEqual = roundqty.IsEqual(roundqty2);
+            Console.WriteLine(isEqual);
+
+        }
+
+        // Метод для проверки равенства двух массивов.
+        // Перебираем элементы массива и вызываем Equals() метод для каждого элемента.
+        private static bool IsEqual<T>(this T[] first, T[] second)
+        {
+            if (first == null && second == null)
+            {
+                return true;
+            }
+
+            if (first == null || second == null)
+            {
+                return false;
+            }
+
+            if (first.Length != second.Length)
+            {
+                return false;
+            }
+
+            var comparer = EqualityComparer<T>.Default;
+            for (int i = 0; i < first.Length; i++)
+            {
+                if (!comparer.Equals(first[i], second[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
+        private static int[] RoundingParameters(decimal input)
+        {
+            var qty = input.ToString(CultureInfo.InvariantCulture);
+            var qtylength = qty.Length;
+            // Определяем позицию точки в строке методом IndexOf()
+            var pointqty = qty.IndexOf('.');
+            int[] roundingparameters;
+            if (pointqty == -1)
+            {
+                // Если точка не найдена, находим количество цифр - .Length
+                const int topointqty = 0;
+                roundingparameters = new[] { topointqty, qtylength };
+            }
+            else
+            {
+                // Если точка найдена, находим количество цифр после точки
+                var afterpointqty = (qtylength - 1) - pointqty;
+                // Если точка найдена, находим количество цифр до точки - IndexOf()
+                roundingparameters = new[] { pointqty, afterpointqty };
             }
 
             return roundingparameters;
