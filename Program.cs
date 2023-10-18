@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Threading;
 
-// Определить количество цифр, идущих после точки (.)
+// Определить количество цифр, до точки и после точки (.)
 // Работает с точкой (.) и не работает с запятой (,)
 
 namespace NumberDigits
@@ -13,11 +13,13 @@ namespace NumberDigits
         {
             // Входные данные
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            const decimal qty = 5.00000000m;
-            //const decimal qty = 0.00010000m;
-            //const decimal qty = 0.00001000m;
-            //const decimal qty = 1.00000000m;
-            //const decimal qty = 10000000m;
+            const decimal qty = 1.002687m;
+            //const decimal qty = 2489m;
+            //const decimal qty = 1.002687m;
+            //const decimal qty = 0.00225679m;
+            //const decimal qty = 5.00000000m;
+            //const decimal qty = 100.42849m;
+            //const decimal qty = 0.26885272m;
             var roundqty = RoundingParameters(qty);
             Console.WriteLine("RoundingParameters: Число {0} округляем до {1} знака", qty, roundqty);
 
