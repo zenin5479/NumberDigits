@@ -22,12 +22,12 @@ namespace NumberDigits
             //const decimal qty = 5.00000000m;
             //const decimal qty = 100.42849m;
             //const decimal qty = 0.26885272m;
-            var roundqty = RoundingParameters(qty);
-            int[] roundqty2 = { 0, 4 };
-            if (roundqty[0] == 0)
-                Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр " + roundqty[1]);
+            var initialdigits = RoundingParameters(qty);
+            int[] specifieddigits = { 0, 4 };
+            if (initialdigits[0] == 0)
+                Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр " + initialdigits[1]);
             else
-                Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр" + " до точки " + roundqty[0] + " после точки " + roundqty[1]);
+                Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр" + " до точки " + initialdigits[0] + " после точки " + initialdigits[1]);
 
             // Преобразовать число с плавающей точкой в строку
             var stringqty = qty.ToString(CultureInfo.InvariantCulture);
@@ -46,30 +46,28 @@ namespace NumberDigits
                 Console.WriteLine("Число " + qty + " количество цифр" + " до точки " + pointqty + " после точки " + afterpointqty);
             }
 
-            // Использование Enumerable.SequenceEqual
-            // Если массив не нулевой, напрямую вызваем метод SequenceEqual() для массива, чтобы сравнить его содержимое с указанным массивом.
-            var equalityarrays = roundqty.SequenceEqual(roundqty2);
+            // Использование Enumerable.SequenceEqual. Linq
+            var equalityarrays = initialdigits.SequenceEqual(specifieddigits);
             Console.WriteLine(equalityarrays);
 
-            // Сравнение элементов последовательностей с использованием стандартного компаратора равенства.
-            var equalityarrays2 = Enumerable.SequenceEqual(roundqty, roundqty2);
+            // Сравнение элементов последовательностей с использованием стандартного компаратора равенства. Linq
+            var equalityarrays2 = Enumerable.SequenceEqual(initialdigits, specifieddigits);
             Console.WriteLine(equalityarrays2);
 
-            // Использование собственного метода сравнения
-            var equalityarrays3 = roundqty.CheckingEqualityArrays(roundqty2);
+            // Использование собственного метода сравнения.
+            var equalityarrays3 = initialdigits.CheckingEqualityArrays(specifieddigits);
             Console.WriteLine(equalityarrays3);
 
-            // Использование собственного метода сравнения
-            var equalityarrays4 = roundqty.CheckingEqualityArrays2(roundqty2);
+            // Использование собственного метода сравнения.  Linq
+            var equalityarrays4 = initialdigits.CheckingEqualityArrays2(specifieddigits);
             Console.WriteLine(equalityarrays4);
 
-            // Использование собственного метода сравнения
-            var equalityarrays5 = CheckingEqualityArrays3(roundqty, roundqty2, EqualityComparer<int>.Default);
+            // Использование собственного метода сравнения.
+            var equalityarrays5 = CheckingEqualityArrays3(initialdigits, specifieddigits, EqualityComparer<int>.Default);
             Console.WriteLine(equalityarrays5);
         }
 
         // Метод для проверки равенства двух массивов.
-        // Перебираем элементы массива и вызываем метод Equals() для каждого элемента.
         private static bool CheckingEqualityArrays<TSource>(this IReadOnlyList<TSource> first, IReadOnlyList<TSource> second)
         {
             if (first == null && second == null)
@@ -99,11 +97,13 @@ namespace NumberDigits
             return true;
         }
 
+        // Метод для проверки равенства двух массивов. Linq
         public static bool CheckingEqualityArrays2<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             return first.SequenceEqual(second, EqualityComparer<TSource>.Default);
         }
 
+        // Метод для проверки равенства двух массивов.
         public static bool CheckingEqualityArrays3<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
         {
             if (comparer == null)
