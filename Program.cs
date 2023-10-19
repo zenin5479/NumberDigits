@@ -15,35 +15,35 @@ namespace NumberDigits
         {
             // Входные данные
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
-            //const decimal qty = 1.002687m;
-            //const decimal qty = 2489m;
-            //const decimal qty = 1.002687m;
-            //const decimal qty = 0.00225679m;
-            //const decimal qty = 5.00000000m;
-            const decimal qty = 100.42849m;
-            //const decimal qty = 0.26885272m;
-            var initialdigits = NumberDigits(qty);
+            //const decimal askprice = 1.002687m;
+            //const decimal askprice = 2489m;
+            //const decimal askprice = 1.002687m;
+            //const decimal askprice = 0.00225679m;
+            //const decimal askprice = 5.00000000m;
+            const decimal askprice = 100.42849m;
+            //const decimal askprice = 0.26885272m;
+            var initialdigits = NumberDigits(askprice);
             int[] specifieddigits = { 3, 5 };
             if (initialdigits[0] == 0)
-                Console.WriteLine("NumberDigits: Число " + qty + " количество цифр " + initialdigits[1]);
+                Console.WriteLine("NumberDigits: Число " + askprice + " количество цифр " + initialdigits[1]);
             else
-                Console.WriteLine("NumberDigits: Число " + qty + " количество цифр" + " до точки " + initialdigits[0] + " после точки " + initialdigits[1]);
+                Console.WriteLine("NumberDigits: Число " + askprice + " количество цифр" + " до точки " + initialdigits[0] + " после точки " + initialdigits[1]);
 
             // Преобразовать число с плавающей точкой в строку
-            var stringqty = qty.ToString(CultureInfo.InvariantCulture);
+            var stringqty = askprice.ToString(CultureInfo.InvariantCulture);
             var stringqtylength = stringqty.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointqty = stringqty.IndexOf('.');
             if (pointqty == -1)
             {
                 // Если точка не найдена, находим количество цифр
-                Console.WriteLine("Число {0} количество цифр {1}", qty, stringqtylength);
+                Console.WriteLine("Число {0} количество цифр {1}", askprice, stringqtylength);
             }
             else
             {
                 // Если точка найдена, находим количество цифр после точки
                 var afterpointqty = (stringqtylength - 1) - pointqty;
-                Console.WriteLine("Число " + qty + " количество цифр" + " до точки " + pointqty + " после точки " + afterpointqty);
+                Console.WriteLine("Число " + askprice + " количество цифр" + " до точки " + pointqty + " после точки " + afterpointqty);
             }
 
             // Использование Enumerable.SequenceEqual. Linq
@@ -135,50 +135,50 @@ namespace NumberDigits
         private static int[] NumberDigits(decimal input)
         {
             var number = input.ToString(CultureInfo.InvariantCulture);
-            var qtylength = number.Length;
+            var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointqty = number.IndexOf('.');
-            int[] rameters;
+            int[] parameters;
             if (pointqty == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
                 const int topointqty = 0;
-                rameters = new[] { topointqty, qtylength };
+                parameters = new[] { topointqty, numberlength };
             }
             else
             {
                 // Если точка найдена, находим количество цифр после точки
-                var afterpointqty = (qtylength - 1) - pointqty;
+                var afterpointqty = (numberlength - 1) - pointqty;
                 // Если точка найдена, находим количество цифр до точки - IndexOf()
-                rameters = new[] { pointqty, afterpointqty };
+                parameters = new[] { pointqty, afterpointqty };
             }
 
-            return rameters;
+            return parameters;
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется) NumberDigits(double input)
         private static int[] NumberDigits(double input)
         {
             var number = input.ToString(CultureInfo.InvariantCulture);
-            var qtylength = number.Length;
+            var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointqty = number.IndexOf('.');
-            int[] rameters;
+            int[] parameters;
             if (pointqty == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
                 const int topointqty = 0;
-                rameters = new[] { topointqty, qtylength };
+                parameters = new[] { topointqty, numberlength };
             }
             else
             {
                 // Если точка найдена, находим количество цифр после точки
-                var afterpointqty = (qtylength - 1) - pointqty;
+                var afterpointqty = (numberlength - 1) - pointqty;
                 // Если точка найдена, находим количество цифр до точки - IndexOf()
-                rameters = new[] { pointqty, afterpointqty };
+                parameters = new[] { pointqty, afterpointqty };
             }
 
-            return rameters;
+            return parameters;
         }
     }
 }
