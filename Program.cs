@@ -59,11 +59,11 @@ namespace NumberDigits
             Console.WriteLine(equalityarrays3);
 
             // Использование собственного метода сравнения.  Linq
-            var equalityarrays4 = initialdigits.CheckingEqualityArrays2(specifieddigits);
+            var equalityarrays4 = initialdigits.CheckingEqualityArraysLinq(specifieddigits);
             Console.WriteLine(equalityarrays4);
 
             // Использование собственного метода сравнения.
-            var equalityarrays5 = CheckingEqualityArrays3(initialdigits, specifieddigits, EqualityComparer<int>.Default);
+            var equalityarrays5 = CheckingEqualityArrays(initialdigits, specifieddigits, EqualityComparer<int>.Default);
             Console.WriteLine(equalityarrays5);
         }
 
@@ -98,13 +98,13 @@ namespace NumberDigits
         }
 
         // Метод для проверки равенства двух массивов. Linq
-        public static bool CheckingEqualityArrays2<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        public static bool CheckingEqualityArraysLinq<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
         {
             return first.SequenceEqual(second, EqualityComparer<TSource>.Default);
         }
 
         // Метод для проверки равенства двух массивов.
-        public static bool CheckingEqualityArrays3<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        public static bool CheckingEqualityArrays<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
         {
             if (comparer == null)
                 comparer = EqualityComparer<TSource>.Default;
@@ -131,29 +131,54 @@ namespace NumberDigits
             return true;
         }
 
-        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется) NumberDigits(decimal input)
         private static int[] NumberDigits(decimal input)
         {
-            var qty = input.ToString(CultureInfo.InvariantCulture);
-            var qtylength = qty.Length;
+            var number = input.ToString(CultureInfo.InvariantCulture);
+            var qtylength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
-            var pointqty = qty.IndexOf('.');
-            int[] roundingparameters;
+            var pointqty = number.IndexOf('.');
+            int[] rameters;
             if (pointqty == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
                 const int topointqty = 0;
-                roundingparameters = new[] { topointqty, qtylength };
+                rameters = new[] { topointqty, qtylength };
             }
             else
             {
                 // Если точка найдена, находим количество цифр после точки
                 var afterpointqty = (qtylength - 1) - pointqty;
                 // Если точка найдена, находим количество цифр до точки - IndexOf()
-                roundingparameters = new[] { pointqty, afterpointqty };
+                rameters = new[] { pointqty, afterpointqty };
             }
 
-            return roundingparameters;
+            return rameters;
+        }
+
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется) NumberDigits(double input)
+        private static int[] NumberDigits(double input)
+        {
+            var number = input.ToString(CultureInfo.InvariantCulture);
+            var qtylength = number.Length;
+            // Определяем позицию точки в строке методом IndexOf()
+            var pointqty = number.IndexOf('.');
+            int[] rameters;
+            if (pointqty == -1)
+            {
+                // Если точка не найдена, находим количество цифр - .Length
+                const int topointqty = 0;
+                rameters = new[] { topointqty, qtylength };
+            }
+            else
+            {
+                // Если точка найдена, находим количество цифр после точки
+                var afterpointqty = (qtylength - 1) - pointqty;
+                // Если точка найдена, находим количество цифр до точки - IndexOf()
+                rameters = new[] { pointqty, afterpointqty };
+            }
+
+            return rameters;
         }
     }
 }
