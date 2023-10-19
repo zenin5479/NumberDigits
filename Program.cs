@@ -16,18 +16,18 @@ namespace NumberDigits
             // Входные данные
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal qty = 1.002687m;
-            const decimal qty = 2489m;
+            //const decimal qty = 2489m;
             //const decimal qty = 1.002687m;
             //const decimal qty = 0.00225679m;
             //const decimal qty = 5.00000000m;
-            //const decimal qty = 100.42849m;
+            const decimal qty = 100.42849m;
             //const decimal qty = 0.26885272m;
-            var initialdigits = RoundingParameters(qty);
-            int[] specifieddigits = { 0, 4 };
+            var initialdigits = NumberDigits(qty);
+            int[] specifieddigits = { 3, 5 };
             if (initialdigits[0] == 0)
-                Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр " + initialdigits[1]);
+                Console.WriteLine("NumberDigits: Число " + qty + " количество цифр " + initialdigits[1]);
             else
-                Console.WriteLine("RoundingParameters: Число " + qty + " количество цифр" + " до точки " + initialdigits[0] + " после точки " + initialdigits[1]);
+                Console.WriteLine("NumberDigits: Число " + qty + " количество цифр" + " до точки " + initialdigits[0] + " после точки " + initialdigits[1]);
 
             // Преобразовать число с плавающей точкой в строку
             var stringqty = qty.ToString(CultureInfo.InvariantCulture);
@@ -132,7 +132,7 @@ namespace NumberDigits
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int[] RoundingParameters(decimal input)
+        private static int[] NumberDigits(decimal input)
         {
             var qty = input.ToString(CultureInfo.InvariantCulture);
             var qtylength = qty.Length;
