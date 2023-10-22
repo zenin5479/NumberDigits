@@ -15,6 +15,35 @@ namespace NumberDigits
         {
             // Входные данные
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
+            //const decimal ask = 1.002687m;
+            //const decimal ask = 2489m;
+            //const decimal ask = 1.002687m;
+            //const decimal ask = 0.00225679m;
+            //const decimal ask = 5.00000000m;
+            const decimal ask = 100.42849m;
+            //const decimal ask = 0.26885272m;
+            var roundqty = DigitsNumber(ask);
+            Console.WriteLine("DigitsNumber: Число {0} округляем до {1} знака", ask, roundqty);
+
+            // Преобразовать число с плавающей точкой в строку
+            var stringask = ask.ToString(CultureInfo.InvariantCulture);
+            var stringasklength = stringask.Length;
+            // Определяем позицию точки в строке методом IndexOf()
+            var pointask = stringask.IndexOf('.');
+            var afterpointask = (stringasklength - 1) - pointask;
+            if (pointask == -1)
+            {
+                // Если точка не найдена, находим количество цифр
+                Console.WriteLine("Число {0} количество цифр {1}", stringask, stringasklength);
+            }
+            else
+            {
+                // Если точка найдена, находим количество цифр после точки
+                Console.WriteLine("Число " + stringask + " количество цифр" + " до точки " + pointask + " после точки " + afterpointask);
+            }
+
+            // Входные данные
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal askprice = 1.002687m;
             //const decimal askprice = 2489m;
             //const decimal askprice = 1.002687m;
@@ -137,20 +166,20 @@ namespace NumberDigits
             var number = input.ToString(CultureInfo.InvariantCulture);
             var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
-            var pointqty = number.IndexOf('.');
+            var pointnumber = number.IndexOf('.');
             int[] parameters;
-            if (pointqty == -1)
+            var afterpointnumber = (numberlength - 1) - pointnumber;
+            if (pointnumber == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
-                const int topointqty = 0;
-                parameters = new[] { topointqty, numberlength };
+                const int topointnumber = 0;
+                parameters = new[] { topointnumber, numberlength };
             }
             else
             {
                 // Если точка найдена, находим количество цифр после точки
-                var afterpointqty = (numberlength - 1) - pointqty;
                 // Если точка найдена, находим количество цифр до точки - IndexOf()
-                parameters = new[] { pointqty, afterpointqty };
+                parameters = new[] { pointnumber, afterpointnumber };
             }
 
             return parameters;
@@ -162,9 +191,10 @@ namespace NumberDigits
             var number = input.ToString(CultureInfo.InvariantCulture);
             var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
-            var pointqty = number.IndexOf('.');
+            var pointnumber = number.IndexOf('.');
             int[] parameters;
-            if (pointqty == -1)
+            var afterpointnumber = (numberlength - 1) - pointnumber;
+            if (pointnumber == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
                 const int topointqty = 0;
@@ -173,12 +203,87 @@ namespace NumberDigits
             else
             {
                 // Если точка найдена, находим количество цифр после точки
-                var afterpointqty = (numberlength - 1) - pointqty;
                 // Если точка найдена, находим количество цифр до точки - IndexOf()
-                parameters = new[] { pointqty, afterpointqty };
+                parameters = new[] { pointnumber, afterpointnumber };
             }
 
             return parameters;
+        }
+
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
+        private static int DigitsNumber(decimal input)
+        {
+            var number = input.ToString(CultureInfo.InvariantCulture);
+            var numberlength = number.Length;
+            // Определяем позицию точки в строке методом IndexOf()
+            var pointnumber = number.IndexOf('.');
+            int roundingparameters;
+            var placesnumber = (numberlength - 1) - pointnumber;
+            if (pointnumber == -1)
+            {
+                roundingparameters = numberlength;
+            }
+            else
+            {
+                // Если точка найдена, находим длину строки после точки
+                roundingparameters = placesnumber;
+            }
+
+            return roundingparameters;
+        }
+
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
+        private static int DigitsNumberwithunit(decimal input)
+        {
+            var number = input.ToString(CultureInfo.InvariantCulture);
+            var numberlength = number.Length;
+            int roundingparameters;
+            // Определяем позицию точки в строке методом IndexOf()
+            var pointnumber = number.IndexOf('.');
+            var onenumber = number.IndexOf('1');
+            if (pointnumber != -1)
+            {
+                var placesonenumber = onenumber - pointnumber;
+                if (pointnumber > onenumber)
+                {
+                    // Если точка найдена и единица найдена, находим положение единицы до точки
+                    roundingparameters = pointnumber;
+                }
+                else
+                {
+                    // Если точка найдена и единица найдена, находим положение единицы после точки
+                    roundingparameters = placesonenumber;
+                }
+            }
+            else
+            {
+                // Если точка не найдена а единица найдена, положение единицы будет равно длине строки
+                roundingparameters = numberlength;
+            }
+
+            return roundingparameters;
+        }
+
+        // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
+        private static int DigitsNumber(double input)
+        {
+            var number = input.ToString(CultureInfo.InvariantCulture);
+            var numberlength = number.Length;
+            // Определяем позицию точки в строке методом IndexOf()
+            var pointnumber = number.IndexOf('.');
+            int roundingparameters;
+            var placesnumber = (numberlength - 1) - pointnumber;
+            if (pointnumber == -1)
+            {
+                roundingparameters = numberlength;
+            }
+            else
+            {
+                // Если точка найдена, находим длину строки после точки
+                roundingparameters = placesnumber;
+            }
+
+            return roundingparameters;
         }
     }
 }
