@@ -233,7 +233,7 @@ namespace NumberDigits
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int DigitsNumberwithunit(decimal input)
+        private static int DigitsNumberWithUnit(decimal input)
         {
             var number = input.ToString(CultureInfo.InvariantCulture);
             var numberlength = number.Length;
@@ -265,7 +265,7 @@ namespace NumberDigits
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int DigitsNumber(double input)
+        private static int DigitsNumberWithUnit(double input)
         {
             var number = input.ToString(CultureInfo.InvariantCulture);
             var numberlength = number.Length;
