@@ -17,14 +17,14 @@ namespace NumberDigits
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal ask = 1.002687m;
             //const decimal ask = 2489m;
-            //const decimal ask = 1.002687m;
+            const decimal ask = 10.002687m;
             //const decimal ask = 0.00225679m;
             //const decimal ask = 5.00000000m;
-            const decimal ask = 100.42849m;
+            //const decimal ask = 100.42849m;
             //const decimal ask = 0.26885272m;
-            var roundqty = DigitsNumber(ask);
-            Console.WriteLine("DigitsNumber: Число {0} округляем до {1} знака", ask, roundqty);
-
+            var digitsNumberAsk = DigitsNumber(ask);
+            Console.WriteLine("NumberDigits: Число " + ask + " количество цифр " + digitsNumberAsk);
+            
             // Преобразовать число с плавающей точкой в строку
             var stringask = ask.ToString(CultureInfo.InvariantCulture);
             var stringasklength = stringask.Length;
@@ -46,10 +46,10 @@ namespace NumberDigits
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal askprice = 1.002687m;
             //const decimal askprice = 2489m;
-            //const decimal askprice = 1.002687m;
+            const decimal askprice = 10.002687m;
             //const decimal askprice = 0.00225679m;
             //const decimal askprice = 5.00000000m;
-            const decimal askprice = 100.42849m;
+            //const decimal askprice = 100.42849m;
             //const decimal askprice = 0.26885272m;
             var initialdigits = NumberDigits(askprice);
             int[] specifieddigits = { 3, 5 };
