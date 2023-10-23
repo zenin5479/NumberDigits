@@ -13,24 +13,24 @@ namespace NumberDigits
     {
         private static void Main()
         {
-            // Входные данные
+            // Входные данные. Определить количество цифр, после точки (.).
+            // Выходные данные - число цифр после точки: int digitsNumberAsk = DigitsNumber(ask).
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal ask = 1.002687m;
             //const decimal ask = 2489m;
-            const decimal ask = 10.002687m;
+            const decimal ask = 75.268m;
             //const decimal ask = 0.00225679m;
-            //const decimal ask = 5.00000000m;
             //const decimal ask = 100.42849m;
             //const decimal ask = 0.26885272m;
-            var digitsNumberAsk = DigitsNumber(ask);
-            Console.WriteLine("NumberDigits: Число " + ask + " количество цифр " + digitsNumberAsk);
+            int digitsNumberAsk = DigitsNumber(ask);
+            Console.WriteLine("DigitsNumber: Число " + ask + " количество цифр " + digitsNumberAsk);
             
             // Преобразовать число с плавающей точкой в строку
             var stringask = ask.ToString(CultureInfo.InvariantCulture);
             var stringasklength = stringask.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointask = stringask.IndexOf('.');
-            var afterpointask = (stringasklength - 1) - pointask;
+            var afterpointask = stringasklength - 1 - pointask;
             if (pointask == -1)
             {
                 // Если точка не найдена, находим количество цифр
@@ -42,17 +42,17 @@ namespace NumberDigits
                 Console.WriteLine("Число " + stringask + " количество цифр" + " до точки " + pointask + " после точки " + afterpointask);
             }
 
-            // Входные данные
+            // Входные данные. Определить количество цифр, до точки и после точки (.).
+            // Выходные данные - массив количества цифр до точки и после точки: int[] specifieddigits = { 2, 3 };
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal askprice = 1.002687m;
             //const decimal askprice = 2489m;
-            const decimal askprice = 10.002687m;
+            const decimal askprice = 75.268m;
             //const decimal askprice = 0.00225679m;
-            //const decimal askprice = 5.00000000m;
             //const decimal askprice = 100.42849m;
             //const decimal askprice = 0.26885272m;
             var initialdigits = NumberDigits(askprice);
-            int[] specifieddigits = { 3, 5 };
+            int[] specifieddigits = { 2, 3 };
             if (initialdigits[0] == 0)
                 Console.WriteLine("NumberDigits: Число " + askprice + " количество цифр " + initialdigits[1]);
             else
@@ -63,6 +63,7 @@ namespace NumberDigits
             var stringqtylength = stringqty.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointqty = stringqty.IndexOf('.');
+            var afterpointqty = stringqtylength - 1 - pointqty;
             if (pointqty == -1)
             {
                 // Если точка не найдена, находим количество цифр
@@ -71,7 +72,6 @@ namespace NumberDigits
             else
             {
                 // Если точка найдена, находим количество цифр после точки
-                var afterpointqty = (stringqtylength - 1) - pointqty;
                 Console.WriteLine("Число " + askprice + " количество цифр" + " до точки " + pointqty + " после точки " + afterpointqty);
             }
 
@@ -168,7 +168,7 @@ namespace NumberDigits
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
             int[] parameters;
-            var afterpointnumber = (numberlength - 1) - pointnumber;
+            var afterpointnumber = numberlength - 1 - pointnumber;
             if (pointnumber == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
@@ -193,7 +193,7 @@ namespace NumberDigits
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
             int[] parameters;
-            var afterpointnumber = (numberlength - 1) - pointnumber;
+            var afterpointnumber = numberlength - 1 - pointnumber;
             if (pointnumber == -1)
             {
                 // Если точка не найдена, находим количество цифр - .Length
@@ -218,7 +218,7 @@ namespace NumberDigits
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
             int roundingparameters;
-            var placesnumber = (numberlength - 1) - pointnumber;
+            var placesnumber = numberlength - 1 - pointnumber;
             if (pointnumber == -1)
             {
                 roundingparameters = numberlength;
@@ -241,9 +241,9 @@ namespace NumberDigits
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
             var onenumber = number.IndexOf('1');
+            var placesonenumber = onenumber - pointnumber;
             if (pointnumber != -1)
             {
-                var placesonenumber = onenumber - pointnumber;
                 if (pointnumber > onenumber)
                 {
                     // Если точка найдена и единица найдена, находим положение единицы до точки
@@ -265,14 +265,14 @@ namespace NumberDigits
         }
 
         // Метод для определения количество цифр, идущих после точки (.) (если она имеется)
-        private static int DigitsNumberWithUnit(double input)
+        private static int DigitsNumber(double input)
         {
             var number = input.ToString(CultureInfo.InvariantCulture);
             var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
             int roundingparameters;
-            var placesnumber = (numberlength - 1) - pointnumber;
+            var placesnumber = numberlength - 1 - pointnumber;
             if (pointnumber == -1)
             {
                 roundingparameters = numberlength;
