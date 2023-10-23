@@ -18,28 +18,29 @@ namespace NumberDigits
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal ask = 1.002687m;
             //const decimal ask = 2489m;
-            const decimal ask = 75.268m;
+            //const decimal ask = 75.268m;
             //const decimal ask = 0.00225679m;
-            //const decimal ask = 100.42849m;
+            const decimal ask = 100.42849m;
             //const decimal ask = 0.26885272m;
             int digitsNumberAsk = DigitsNumber(ask);
             Console.WriteLine("DigitsNumber: Число " + ask + " количество цифр " + digitsNumberAsk);
-            
+
             // Преобразовать число с плавающей точкой в строку
-            var stringask = ask.ToString(CultureInfo.InvariantCulture);
-            var stringasklength = stringask.Length;
+            var stringAsk = ask.ToString(CultureInfo.InvariantCulture);
+            var stringAskLength = stringAsk.Length;
             // Определяем позицию точки в строке методом IndexOf()
-            var pointask = stringask.IndexOf('.');
-            var afterpointask = stringasklength - 1 - pointask;
-            if (pointask == -1)
+            var pointAsk = stringAsk.IndexOf('.');
+            var noPointAsk = 0 - stringAskLength;
+            var afterPointAsk = stringAskLength - 1 - pointAsk;
+            if (pointAsk == -1)
             {
                 // Если точка не найдена, находим количество цифр
-                Console.WriteLine("Число {0} количество цифр {1}", stringask, stringasklength);
+                Console.WriteLine("Число {0} количество цифр {1}", ask, noPointAsk);
             }
             else
             {
                 // Если точка найдена, находим количество цифр после точки
-                Console.WriteLine("Число " + stringask + " количество цифр" + " до точки " + pointask + " после точки " + afterpointask);
+                Console.WriteLine("Число " + ask + " количество цифр" + " до точки " + (0 - pointAsk) + " после точки " + afterPointAsk);
             }
 
             // Входные данные. Определить количество цифр, до точки и после точки (.).
@@ -47,9 +48,9 @@ namespace NumberDigits
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); // Переводит (,) в (.)
             //const decimal askprice = 1.002687m;
             //const decimal askprice = 2489m;
-            const decimal askprice = 75.268m;
+            //const decimal askprice = 75.268m;
             //const decimal askprice = 0.00225679m;
-            //const decimal askprice = 100.42849m;
+            const decimal askprice = 100.42849m;
             //const decimal askprice = 0.26885272m;
             var initialdigits = NumberDigits(askprice);
             int[] specifieddigits = { 2, 3 };
@@ -217,11 +218,12 @@ namespace NumberDigits
             var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
-            int roundingparameters;
+            var noPointAsk = 0 - numberlength;
             var placesnumber = numberlength - 1 - pointnumber;
+            int roundingparameters;
             if (pointnumber == -1)
             {
-                roundingparameters = numberlength;
+                roundingparameters = noPointAsk;
             }
             else
             {
@@ -271,11 +273,12 @@ namespace NumberDigits
             var numberlength = number.Length;
             // Определяем позицию точки в строке методом IndexOf()
             var pointnumber = number.IndexOf('.');
-            int roundingparameters;
+            var noPointAsk = 0 - numberlength;
             var placesnumber = numberlength - 1 - pointnumber;
+            int roundingparameters;
             if (pointnumber == -1)
             {
-                roundingparameters = numberlength;
+                roundingparameters = noPointAsk;
             }
             else
             {
